@@ -1,0 +1,46 @@
+﻿/****** Set the height and width of divs ******/
+:root {
+    --height: 0px;
+    --width: 0px;
+}
+
+
+
+
+/****** Create-div button ******/
+.button {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 10px;
+    width: 128px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 10px;
+    -webkit-transition-duration: 0.4s;  Safari 
+    transition-duration: 0.4s;
+    cursor: pointer;
+    z-index:5;
+    position: absolute;
+}
+
+#button {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    display:inline-block;
+}
+
+#class-drop-zone{
+    top: 15em;
+    left: 10em;
+    position:sticky;
+}
+
+    .button:hover {
+        background-color: blue;
+        color: white;
+    }

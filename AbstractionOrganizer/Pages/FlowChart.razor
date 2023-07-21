@@ -1,0 +1,26 @@
+﻿@page "/draggablecomponent"
+
+@using Microsoft.JSInterop
+@inject IJSRuntime JS;
+
+
+<div>
+   
+    <div id="scrollable" class="chart" style="border:1px solid black;">
+        <DragInCComponent>        </DragInCComponent>
+        <svg class="grid-style spacer">        </svg>
+
+    </div>
+</div>
+
+
+
+@*Handle the tracking/maintenance of draggables here*@
+
+@code 
+{
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JS.InvokeVoidAsync("centerChart");
+    }
+}

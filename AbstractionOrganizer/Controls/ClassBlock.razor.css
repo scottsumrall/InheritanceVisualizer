@@ -1,0 +1,38 @@
+﻿
+
+/****** Set the height and width of divs ******/
+:root {
+    --height: 0px;
+    --width: 0px;
+}
+
+/****** Drag-and-dropable divs ******/
+.draggable {
+    width: 250px;
+    min-height: 6.5em;
+    margin: 1rem 0 0 1rem;
+    background-color: #29e;
+    color: white;
+    border-radius: 0.75em;
+    padding: 1%;
+    touch-action: none;
+    user-select: none;
+    position: absolute;
+    background-color: #5C5C5C;
+    box-sizing: border-box;
+    container-type: inline-size;
+}
+
+/****** SVG patch cords ******/
+
+/* a div with these set as id='' will use them directly*/
+#patchCords {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    stroke-linecap: round;
+    z-index: 100;
+}
+
+

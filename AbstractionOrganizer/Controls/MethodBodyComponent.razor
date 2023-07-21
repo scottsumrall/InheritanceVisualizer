@@ -1,0 +1,53 @@
+﻿<div id="@methodID" class="row w-100">
+    <div class="col box d-flex flex-row justify-content-center">
+        <div class="col-3 d-flex component-item">
+                   <div class="dropdown">
+                            <div class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Public
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                    </div>
+        </div>
+
+            <div class="col-3 d-flex component-item">
+                        <p>Class</p>
+            </div>
+
+        <div class="col-4 d-flex component-item">
+                        <div id="inner" contenteditable="true" onclick="this.focus()" placeholder="Name..." ></div>
+        </div>
+            <div class="col-2 d-flex component-item">
+                        <button @onclick="Toggle" class="btn">
+                            <div class="triangle-down"></div>
+                        </button>
+            </div>
+    </div>
+</div>
+
+    @if(!Collapsed)
+    {
+            <MethodCodeBlockComponent></MethodCodeBlockComponent>
+    }
+
+
+@code {
+    [Parameter]
+    public String methodID { get; set; }
+
+
+    public bool Collapsed { get; set; } = true;
+
+    void Toggle()
+    {
+        Collapsed = !Collapsed;
+    }
+}
+
+
+@*use parameters to set id based on the id of the unit being created
+
+the unit being created should have a unique id dynamically generaetd*@

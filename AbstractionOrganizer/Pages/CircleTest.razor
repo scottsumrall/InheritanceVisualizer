@@ -1,0 +1,20 @@
+﻿
+
+
+<h3>Circles</h3>
+<button class="btn btn-primary" @onclick="addButton">Click me</button>
+
+@foreach (int value in Values)
+{
+    <CirclesComponent radius="value" displayValue="@("pop. " + value)" />
+}
+
+@code {
+    List<int> Values = new List<int> { 100, 230}; 
+    // You'll have to come up with your own list of values however you want.
+
+    private void addButton()
+    {
+        Values.Add(100);
+    }
+}

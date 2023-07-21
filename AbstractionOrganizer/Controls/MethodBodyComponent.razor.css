@@ -1,0 +1,116 @@
+﻿div {
+    font-size: 2cqw;
+    color: white;
+}
+
+p{
+    margin: auto;
+}
+
+.component-item{
+    flex: 0 1 auto;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.grid-tester {
+    width: 100%;
+    height: 10em;
+}
+
+.class-container {
+    height: 100%;
+}
+
+.box {
+    min-height: 1em;
+    height: 5cqw;
+    width: 95%;
+    font-size: 12pt;
+    margin: 5px;
+    background-color: #5C5C5C;
+    border-radius: 25px;
+}
+
+.class-component-overflow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: auto;
+    margin: 2px;
+    max-height: 100%;
+    position: absolute;
+    max-width: 97%;
+}
+
+#tester {
+    position: relative;
+}
+
+.content-block {
+    border: 15px solid red;
+    border-width: 2px;
+}
+
+
+p {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#header-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/****** Editable divs ******/
+#flex {
+    display: flex;
+    display: -webkit-flex;
+    position: relative;
+    top: 50%;
+    transform: perspective(1px) translateY(-50%);
+    word-wrap: normal;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    flex-basis: 100em;
+}
+
+#inner {
+    outline: none;
+    display: inline-block;
+    margin: 0px;
+    z-index: 150;
+}
+
+[contenteditable=true]:empty:before {
+    color: #bdaeae;
+    font-style: italic;
+    content: attr(placeholder);
+    display: block; /* For Firefox */
+}
+
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 7.5px solid transparent;
+    border-right: 7.5px solid transparent;
+    border-top: 15px solid white;
+
+}
+
+.transition-visible {
+    overflow: hidden;
+    transition: transform 0.3s ease-out;
+    height: auto;
+    transform: scaleY(1);
+    transform-origin: top;
+}
+
+    .transition-visible.transition-collapsed {
+        transform: scaleY(0);
+    }

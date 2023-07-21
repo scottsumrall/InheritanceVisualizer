@@ -1,0 +1,20 @@
+﻿@page "/testdraggable"
+@using Microsoft.JSInterop
+@inject IJSRuntime JS;
+<svg id="targetSvg">
+<div id="testerID" class="movable circle"></div>
+
+	<div id="class-dragger" class=" btn line-button circle" @onclick="OnSelect"></div>
+
+
+<line id="line1" />
+</svg>
+
+@code{
+	string myId = "testerID";
+
+	protected async Task OnSelect()
+	{
+		await JS.InvokeVoidAsync("selectLinePoint", myId);
+	}
+}

@@ -1,0 +1,43 @@
+﻿@*<div class="my-1">
+    <h3>@Title</h3>
+
+    @if (Collapsed)
+    {
+        <button @onclick="@Toggle" class="badge badge-info mr-2" role="button">
+            @ButtonText
+        </button>
+    }
+    else
+    {
+        <button @onclick="@Toggle" class="badge badge-info mr-2" role="button">
+            @ButtonText
+        </button>
+    }
+    <label>
+        @LabelText
+    </label>
+</div>
+
+@if (!Collapsed)
+{
+    <div class="card alert alert-info mb-3" role="alert">
+        @ChildContent
+    </div>
+}
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [Parameter]
+
+
+    //input params coming from from page
+    [Parameter]
+    public string Title { get; set; }
+    [Parameter]
+    public string ButtonText { get; set; }
+    [Parameter]
+    public string LabelText { get; set; }
+
+
+}*@

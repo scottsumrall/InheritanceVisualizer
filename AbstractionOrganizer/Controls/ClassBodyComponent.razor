@@ -1,0 +1,68 @@
+﻿
+
+
+<div class="container-fluid d-flex class-container h-100 no-p">
+    <div class="row w-100 g-0">
+        <div class="col h-100 d-flex flex-column">
+            <div class="row ">
+
+                        <SectionHeaderComponent></SectionHeaderComponent>
+   
+
+            </div>
+            <div class="row">
+
+                <div class="col-5 col d-flex justify-content-center list-headers">
+                    <p>Member Variables</p>
+                </div>
+                <div class="col d-flex justify-content-center list-headers">
+                    <p>Member Methods</p>
+                    <button @onclick="NewMethod" class="btn">
+                        <p>+</p>
+                    </button>
+                </div>
+
+            </div>
+            <div class="row h-100">
+
+                <div id="tester" class="col-5  h-100 no-padding">
+
+                    <div class="class-component-overflow flex-fill h-100 w-100 member-background">
+
+                        <MethodBodyComponent methodId="temp1"></MethodBodyComponent>
+                        <MethodBodyComponent methodId="temp2"></MethodBodyComponent>
+                        <MethodBodyComponent methodId="temp3"></MethodBodyComponent>
+                        <MethodBodyComponent methodId="temp4"></MethodBodyComponent>
+                        <MethodBodyComponent methodId="temp5"></MethodBodyComponent>
+                        <MethodBodyComponent methodId="temp6"></MethodBodyComponent>
+                    </div>
+            
+                </div>
+
+                <div id="tester" class="col-7  h-100">
+                    <div class="class-component-overflow flex-fill h-100 w-100 member-background">
+                        @foreach (String value in MethodIds)
+                        {
+                            <MethodBodyComponent methodId=@value></MethodBodyComponent>
+                        }
+      
+                   </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+    List<String> MethodIds = new List<String> { };
+    List<String> VariableIds = new List<String> { };
+    int methodIdCount = 0;
+
+    void NewMethod()
+    {
+        MethodIds.Add("Method" + methodIdCount);
+    }
+}

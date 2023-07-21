@@ -1,0 +1,20 @@
+﻿@using Microsoft.JSInterop
+@inject IJSRuntime JS;
+
+<div id = "@DivID" class = "draggable" onclick="this.focus()" text-align="center">
+@*    <div id="flex">
+        <div id="inner" contenteditable="true" onclick="this.focus()" placeholder="Enter text here..." display="inline-block"></div>
+    </div>*@
+    <ClassBodyComponent></ClassBodyComponent>
+</div>
+<svg id="patchCords"></svg>
+
+
+
+
+@code {
+    [Parameter]
+    public ClassComponentBase DivID { get; set; }
+
+    //will be responsible for creating method components and passing their relevant data object
+}

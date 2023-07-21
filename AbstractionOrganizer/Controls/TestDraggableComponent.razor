@@ -1,0 +1,23 @@
+﻿@using Microsoft.JSInterop
+@inject IJSRuntime JS;
+
+
+ 
+      <div id="button">
+        <button class="button" onClick="createDiv()">new state</button>
+      </div>
+      <div id="main">
+        <svg id="patchCords"></svg>
+      </div>
+
+
+@code {
+
+    public List<RenderFragment> list { get; set; }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JS.InvokeVoidAsync("testDragAndDrop", ".draggable");
+    }
+}

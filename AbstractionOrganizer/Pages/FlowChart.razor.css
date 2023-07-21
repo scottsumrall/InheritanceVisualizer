@@ -1,0 +1,32 @@
+﻿div {
+    height:100vh
+}
+
+.chart {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.spacer {
+    position: absolute;
+    content: '';
+    z-index: -1;
+    width: calc(7000px);
+    height: calc(7000px);
+
+}
+
+.grid-style {
+    pointer-events: none;
+    background-size: 40px 40px;
+    background-color: #100f0f;
+    background-image: radial-gradient(circle, #666161 1px, rgba(0, 0, 0, 0) 1px);+
+}
+
+#scrollable
+{
+
+}

@@ -1,0 +1,33 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #77dd77;
+}
+
+div {
+
+
+}
+
+.circle {
+
+    transform: translate(-50%,-50%);
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    background-color: black;
+}
+
+.line-button {
+
+}
+
+.movable {
+    position:absolute;
+
+}
+svg{
+    position: absolute;
+    z-index: -1;
+}

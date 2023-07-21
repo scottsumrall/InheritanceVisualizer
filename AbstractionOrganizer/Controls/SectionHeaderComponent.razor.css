@@ -1,0 +1,47 @@
+﻿p {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+div{
+    font-size: 5cqw;
+    color: white;
+}
+
+#header-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/****** Editable divs ******/
+#flex {
+    display: flex;
+    display: -webkit-flex;
+    position: relative;
+    top: 50%;
+    transform: perspective(1px) translateY(-50%);
+    word-wrap: normal;
+    overflow-wrap: normal;
+    white-space: nowrap;
+    flex-basis: 100em;
+}
+
+#inner {
+    outline: none;
+    display: inline-block;
+    margin: 0px;
+    z-index: 150;
+}
+
+.recessed {
+    background-color: #757575;
+    border-radius: 25px;
+}
+[contenteditable=true]:empty:before {
+    color: #bdaeae;
+    font-style: italic;
+    content: attr(placeholder);
+    display: block; /* For Firefox */
+}
