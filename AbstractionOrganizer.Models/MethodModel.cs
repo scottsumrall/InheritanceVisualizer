@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AbstractionOrganizer.Models
 {
-	internal class Method
+	public class MethodModel
 	{
 	}
 }

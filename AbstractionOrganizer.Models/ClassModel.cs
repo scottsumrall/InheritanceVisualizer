@@ -2,9 +2,10 @@
 
 namespace AbstractionOrganizer.Models
 {
-	public class ClassHeader
+	public class ClassModel
 	{
 		[Required]
+		[Key]
 		public required int Id { get; set; }
 
 		[Required]
@@ -15,6 +16,9 @@ namespace AbstractionOrganizer.Models
 
 		[Required]
 		public required ClassModifier ClassModifier { get; set; }
+
+		public ICollection<VariableModel>? VariableModels { get; set; }
+
 	}
 
 	public enum ClassModifier
