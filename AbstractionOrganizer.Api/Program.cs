@@ -1,51 +1,22 @@
+using AbstractionOrganizer.Api.Data;
+using AbstractionOrganizer.Api.Models;
 using AbstractionOrganizer.Models;
 using Microsoft.EntityFrameworkCore;
 
-List<ClassHeader> classes = new List<ClassHeader>
-{
-	new ClassHeader
-	{
-		Id = 1,
-		Name = "class1",
-		AccessModifier = AccessModifier.Public,
-		ClassModifier = ClassModifier.Concrete
-	},
-
-	new ClassHeader
-	{
-		Id = 2,
-		Name = "class2",
-		AccessModifier = AccessModifier.Protected,
-		ClassModifier = ClassModifier.Concrete
-	},
-
-	new ClassHeader
-	{
-		Id = 3,
-		Name = "class3",
-		AccessModifier = AccessModifier.Protected,
-		ClassModifier = ClassModifier.Abstract
-	},
-
-	new ClassHeader
-	{
-		Id = 4,
-		Name = "class4",
-		AccessModifier = AccessModifier.Private,
-		ClassModifier = ClassModifier.Static
-	}
-};
+// [Program.cs]
 
 var builder = WebApplication.CreateBuilder(args);
 
-var conString = builder.Configuration.GetConnectionString("GameStoreContext");
-
-// Regester the dbContext (GameStoreContext) for dependency injection
-builder.Services.AddSqlServer<DbContext>(conString);
+// TODO: Figure out why secret is causing issues
+var conString = "Server=localhost;Database=AbstractionOrganizer;TrustServerCertificate=True;User Id=sa;Password=Pass@word1";//builder.Configuration.GetConnectionString("AppDbContext");
 
 // Add services to the container.
 
+builder.Services.AddScoped<IClassModelRepository, ClassModelRepository>();
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(conString));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
