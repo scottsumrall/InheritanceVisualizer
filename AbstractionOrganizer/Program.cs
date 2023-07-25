@@ -1,5 +1,6 @@
 using AbstractionOrganizer.Areas.Identity;
 using AbstractionOrganizer.Data;
+using AbstractionOrganizer.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
@@ -17,6 +18,13 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
+
+// Inject class model service
+builder.Services.AddHttpClient<IClassModelService, ClassModelService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7205");
+});
+
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddSingleton<WeatherForecastService>();
