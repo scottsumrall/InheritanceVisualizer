@@ -13,7 +13,15 @@ namespace AbstractionOrganizer.Services
 
         public async Task<IEnumerable<ClassModel>> GetClassModels()
         {
-            return await _httpClient.GetFromJsonAsync<ClassModel[]>("/api/classheader");
-        }
+            ClassModel[]? result = await _httpClient.GetFromJsonAsync<ClassModel[]>("/api/classheader");
+
+            if (result is not null)
+            {
+                return result;
+            }
+
+            return Enumerable.Empty<ClassModel>();
+
+		}
     }
 }
