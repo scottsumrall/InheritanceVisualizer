@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using AbstractionOrganizer.Models;
+using AbstractionOrganizer.Api.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AbstractionOrganizer.Api.Controllers
 {
@@ -9,25 +11,31 @@ namespace AbstractionOrganizer.Api.Controllers
 	[ApiController]
 	public class ClassHeaderController : ControllerBase
 	{
-		private readonly IClassModelRepository classHeaderRepository;
+		private readonly AppDbContext _appDbContext;
 
-		public ClassHeaderController(IClassModelRepository classHeaderRepository)
+		public ClassHeaderController(AppDbContext appDbContext)
 		{
-			this.classHeaderRepository = classHeaderRepository;
+			this._appDbContext = appDbContext;
 		}
 
 		[HttpGet]
 		public async Task<ActionResult> GetClassHeaders()
 		{
-			return Ok(await classHeaderRepository.GetClassModels());
+			if (_appDbContext.ClassHeaders == null)
+			{
+				return NotFound();
+			}
+			return Ok(await _appDbContext.ClassHeaders.ToListAsync());
 		}
+
+
 
 		[HttpGet("{id:int}")]
 		public async Task<ActionResult<ClassModel>> GetClassHeader(int id)
 		{
 			try
 			{
-				var result = await classHeaderRepository.GetClassModel(id);
+				var result = await _appDbContext.ClassHeaders.FindAsync(id);
 
 				if(result == null)
 				{
@@ -42,19 +50,16 @@ namespace AbstractionOrganizer.Api.Controllers
 			}
 		}
 
+		// POST
 		[HttpPost]
 		public async Task<ActionResult<ClassModel>> CreateClassHeader(ClassModel classModel)
 		{
 			try
 			{
-				if(classModel == null)
-				{
-					return BadRequest();
-				}
+				_appDbContext.ClassHeaders.Add(classModel);
+				var newClassHeader = await _appDbContext.SaveChangesAsync();
 
-				var newClassHeader = await classHeaderRepository.AddClassModel(classModel);
-
-				return CreatedAtAction(nameof(GetClassHeader), new { id = newClassHeader.Id }, newClassHeader);
+				return CreatedAtAction(nameof(GetClassHeader), new { id = classModel.Id }, newClassHeader);
 			}
 			catch (Exception) 
 			{
@@ -65,26 +70,37 @@ namespace AbstractionOrganizer.Api.Controllers
 		[HttpPut("{id:int}")]
 		public async Task<ActionResult<ClassModel>> UpdateClassHeader(int id, ClassModel classHeader)
 		{
+			if(id != classHeader.Id)
+			{
+				return BadRequest();
+			}
+
+			_appDbContext.Entry(classHeader).State = EntityState.Modified;
+
+
 			try
 			{
-				if(id != classHeader.Id)
-				{
-					return BadRequest();
-				}
-
-				var oldClassHeader = await classHeaderRepository.GetClassModel(id);
-
-				if(oldClassHeader == null)
-				{
-					return NotFound($"Employee with Id = {id} not found.");
-				}
-
-				return await classHeaderRepository.UpdateClassModel(classHeader);
+				await _appDbContext.SaveChangesAsync();
 			}
-			catch (Exception)
+			catch(DbUpdateConcurrencyException)
 			{
-				return StatusCode(StatusCodes.Status500InternalServerError, "Error updating data from the database.");
+				if (!ClassModelExists(id))
+				{
+					return NotFound();
+				}
+				else
+				{
+					throw;
+				}
 			}
+
+			return NoContent();
+
+		}
+
+		private bool ClassModelExists(long id)
+		{
+			return (_appDbContext.ClassHeaders?.Any(e => e.Id == id)).GetValueOrDefault();
 		}
 
 		[HttpDelete("{id:int}")]
@@ -92,14 +108,19 @@ namespace AbstractionOrganizer.Api.Controllers
 		{
 			try
 			{
-				var employeeToDelete = await classHeaderRepository.GetClassModel(id);
-
-				if (employeeToDelete == null)
+				if (_appDbContext.ClassHeaders == null)
 				{
-					return NotFound($"Employee with Id = {id} not found");
+					return NotFound();
 				}
+				var classModel = await _appDbContext.ClassHeaders.FindAsync(id);
+				if(classModel == null)
+				{
+					return NotFound();
+				}
+				_appDbContext.ClassHeaders.Remove(classModel);
+				await _appDbContext.SaveChangesAsync();
 
-				return await classHeaderRepository.DeleteClassModel(id);
+				return NoContent();
             }
 			catch (Exception)
 			{
