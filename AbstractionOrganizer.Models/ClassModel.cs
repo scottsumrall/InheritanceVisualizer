@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AbstractionOrganizer.Models
 {
 	public class ClassModel
 	{
-		[Required]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		[Key]
 		public required int Id { get; set; }
 
@@ -17,8 +18,7 @@ namespace AbstractionOrganizer.Models
 		[Required]
 		public required ClassModifier ClassModifier { get; set; }
 
-		public ICollection<VariableModel>? VariableModels { get; set; }
-
+		public virtual ICollection<VariableModel>? VariableModels { get; set; } = new List<VariableModel>();
 	}
 
 	public enum ClassModifier
