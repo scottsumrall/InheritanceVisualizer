@@ -21,7 +21,7 @@ namespace AbstractionOrganizer.Api.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AbstractionOrganizer.Models.ClassHeader", b =>
+            modelBuilder.Entity("AbstractionOrganizer.Models.ClassModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,6 +72,68 @@ namespace AbstractionOrganizer.Api.Data.Migrations
                             ClassModifier = 2,
                             Name = "class4"
                         });
+                });
+
+            modelBuilder.Entity("AbstractionOrganizer.Models.VariableModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccessModifier")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClassModelId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsStatic")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassModelId");
+
+                    b.ToTable("VariableModels");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessModifier = 0,
+                            ClassModelId = 1,
+                            IsStatic = false,
+                            Name = "testVar1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AccessModifier = 1,
+                            ClassModelId = 1,
+                            IsStatic = false,
+                            Name = "testVar2"
+                        });
+                });
+
+            modelBuilder.Entity("AbstractionOrganizer.Models.VariableModel", b =>
+                {
+                    b.HasOne("AbstractionOrganizer.Models.ClassModel", "ClassModel")
+                        .WithMany("VariableModels")
+                        .HasForeignKey("ClassModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ClassModel");
+                });
+
+            modelBuilder.Entity("AbstractionOrganizer.Models.ClassModel", b =>
+                {
+                    b.Navigation("VariableModels");
                 });
 #pragma warning restore 612, 618
         }
