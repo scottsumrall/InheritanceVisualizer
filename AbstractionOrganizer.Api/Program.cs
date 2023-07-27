@@ -1,5 +1,4 @@
 using AbstractionOrganizer.Api.Data;
-using AbstractionOrganizer.Api.Models;
 using AbstractionOrganizer.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +11,6 @@ var conString = "Server=localhost;Database=AbstractionOrganizer;TrustServerCerti
 
 // Add services to the container.
 
-builder.Services.AddScoped<IClassModelRepository, ClassModelRepository>();
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(conString));

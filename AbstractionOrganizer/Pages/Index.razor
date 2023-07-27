@@ -26,9 +26,10 @@ else
 					<td>@classHeader.AccessModifier</td>
 					<td>@classHeader.ClassModifier</td>
 					<td>@classHeader.Name</td>
-					<td>
-
-					</td>
+					@foreach (VariableModel varModel in classHeader.VariableModels!)
+					{
+						<td>@varModel.Name</td>
+					}
 				</tr>
 			}
 		</tbody>

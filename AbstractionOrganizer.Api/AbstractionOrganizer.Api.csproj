@@ -25,4 +25,8 @@
     <ProjectReference Include="..\AbstractionOrganizer.Models\AbstractionOrganizer.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

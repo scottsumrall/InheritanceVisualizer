@@ -1,5 +1,4 @@
-﻿using AbstractionOrganizer.Api.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using AbstractionOrganizer.Models;
 using AbstractionOrganizer.Api.Data;
@@ -25,26 +24,32 @@ namespace AbstractionOrganizer.Api.Controllers
 			{
 				return NotFound();
 			}
-			return Ok(await _appDbContext.ClassHeaders.ToListAsync());
+			var classHeaders = await _appDbContext.ClassHeaders
+											.Include(c =>  c.VariableModels)
+											.ToListAsync();
+			return Ok(classHeaders);
 		}
 
 
 
 		[HttpGet("{id:int}")]
-		public async Task<ActionResult<ClassModel>> GetClassHeader(int id)
+		public ActionResult<ClassModel> GetClassHeader(int id)
 		{
 			try
 			{
-				var result = await _appDbContext.ClassHeaders.FindAsync(id);
+				var result = _appDbContext.ClassHeaders
+												.Include(c => c.VariableModels)
+												.Where(c => c.Id == id)
+												.FirstOrDefault();
 
-				if(result == null)
+				if (result == null)
 				{
 					return NotFound();
 				}
 
 				return result;
 			}
-			catch (Exception) 
+			catch (Exception)
 			{
 				return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from the database.");
 			}
@@ -56,6 +61,8 @@ namespace AbstractionOrganizer.Api.Controllers
 		{
 			try
 			{
+				updateRelationships(classModel);
+
 				_appDbContext.ClassHeaders.Add(classModel);
 				var newClassHeader = await _appDbContext.SaveChangesAsync();
 
@@ -67,15 +74,26 @@ namespace AbstractionOrganizer.Api.Controllers
 			}
 		}
 
-		[HttpPut("{id:int}")]
-		public async Task<ActionResult<ClassModel>> UpdateClassHeader(int id, ClassModel classHeader)
+		// Ensure all related entities properly reference the class they belong to
+		private void updateRelationships(ClassModel classModel)
 		{
-			if(id != classHeader.Id)
+			foreach (VariableModel varModel in classModel.VariableModels!)
+			{
+				varModel.ClassModelId = classModel.Id;
+			}
+		}
+
+		[HttpPut("{id:int}")]
+		public async Task<ActionResult<ClassModel>> UpdateClassHeader(int id, ClassModel classModel)
+		{
+			if(id != classModel.Id)
 			{
 				return BadRequest();
 			}
 
-			_appDbContext.Entry(classHeader).State = EntityState.Modified;
+			updateRelationships(classModel);
+
+			_appDbContext.Entry(classModel).State = EntityState.Modified;
 
 
 			try
