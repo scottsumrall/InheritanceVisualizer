@@ -11,8 +11,13 @@
 <div id="class-drop-zone"></div>
     @foreach (string value in Values)
     {
-        <ClassBlock DivID="@value"></ClassBlock>
-        //maybe have a 'new'
+        <div id="@value" class="draggable new" onclick="this.focus()" text-align="center">
+            @*    <div id="flex">
+        <div id="inner" contenteditable="true" onclick="this.focus()" placeholder="Enter text here..." display="inline-block"></div>
+        </div>*@
+            <ClassBodyComponent></ClassBodyComponent>
+        </div>
+        <svg id="patchCords"></svg>
     }
 
 
@@ -31,7 +36,8 @@
         IDName = "class" + _classCounter;
         Values.Add(IDName);
         _classCounter++;
-        System.Diagnostics.Debug.Print(IDName);
+        System.Diagnostics.Debug.Print(IDName); 
+        
     }
 
 
@@ -42,7 +48,7 @@
             await JS.InvokeVoidAsync("testDragAndDrop", ".draggable");
             
         }
-        await JS.InvokeVoidAsync("setInitialPos", IDName);
+        await JS.InvokeVoidAsync("setInitialPos", "new");
     }
 }
 
