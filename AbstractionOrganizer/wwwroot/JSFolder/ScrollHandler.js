@@ -1,20 +1,25 @@
 ﻿function setInitialPos(str) {
-    console.log("hit");
+    console.log(str);
     if (str != null) {
-        var target = document.getElementById(str);
-        console.log("ID NAME: " + str);
+        var target = document.getElementsByClassName(str);
+
+
         var button = document.getElementById("button");
         let targetPos = getOffset(button);
 
         let leftPos = targetPos.left + 700;
         let topPos = targetPos.top + 300;
 
-        //target.style.transform = `translate(${leftPos}px, ${topPos}px)`;
-        target.style.left = (leftPos + "px");
-        target.style.top = (topPos + "px");
+        for (var i = 0; i < target.length; i++) {
+            //target.style.transform = `translate(${leftPos}px, ${topPos}px)`;
+            target[i].style.left = (leftPos + "px");
+            target[i].style.top = (topPos + "px");
 
-        console.log(target.style.left);
-        console.log(target.style.top);
+            console.log(target[i].style.left);
+            console.log(target[i].style.top);
+
+            target[i].classList.remove(str)
+        }
     }
 }
 
