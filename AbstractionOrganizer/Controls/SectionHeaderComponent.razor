@@ -1,4 +1,11 @@
 ﻿<div id="header-flex" class="col recessed">
+    <p>@accessModifier</p>
+    <p>@classModifier</p>
+    <p>Class</p>
+    <p>@name</p>
+</div>
+
+@*<div id="header-flex" class="col recessed">
     <div class="dropdown">
             <div class="dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Public
@@ -13,11 +20,17 @@
 
     <p>Class</p>
 
-    <div id="inner" contenteditable="true" onclick="this.focus()" placeholder="name..." display="inline-block"></div>
+    <div id="inner" contenteditable="true" onclick="this.focus()" placeholder="@name" display="inline-block"></div>
 
 
-</div>
+</div>*@
 
 @code {
+    [Parameter]
+    public required AccessModifier accessModifier { get; set; }
+    [Parameter]
+    public required ClassModifier classModifier { get; set; }
 
+    [Parameter]
+    public required string name { get; set; }
 }
