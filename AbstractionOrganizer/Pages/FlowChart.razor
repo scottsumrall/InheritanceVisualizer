@@ -1,18 +1,24 @@
 ﻿@page "/draggablecomponent"
 
 @using Microsoft.JSInterop
+@inherits ClassComponentBase
 @inject IJSRuntime JS;
 
-
-<div>
+@if(classes is null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <div>
    
-    <div id="scrollable" class="chart" style="border:1px solid black;">
-        <DragInCComponent>        </DragInCComponent>
-        <svg class="grid-style spacer">        </svg>
+        <div id="scrollable" class="chart" style="border:1px solid black;">
+            <DragInCComponent>        </DragInCComponent>
+            <svg class="grid-style spacer">        </svg>
 
+        </div>
     </div>
-</div>
-
+}
 
 
 @*Handle the tracking/maintenance of draggables here*@
@@ -21,6 +27,9 @@
 {
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await JS.InvokeVoidAsync("centerChart");
+        if(classes is not null)
+        {
+            await JS.InvokeVoidAsync("centerChart");
+        }
     }
 }

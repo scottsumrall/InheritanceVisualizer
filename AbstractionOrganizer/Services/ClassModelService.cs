@@ -23,5 +23,10 @@ namespace AbstractionOrganizer.Services
             return Enumerable.Empty<ClassModel>();
 
 		}
+
+        public async Task<ClassModel> GetClassModel(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<ClassModel>($"/api/classheader/{id}");
+        }
     }
 }

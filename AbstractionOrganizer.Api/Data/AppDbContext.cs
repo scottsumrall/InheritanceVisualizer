@@ -1,5 +1,6 @@
 ﻿using AbstractionOrganizer.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Reflection;
 
 namespace AbstractionOrganizer.Api.Data
@@ -19,15 +20,34 @@ namespace AbstractionOrganizer.Api.Data
 			base.OnModelCreating(modelBuilder);
 
 			modelBuilder.Entity<ClassModel>()
-
 			.HasMany(c => c.VariableModels)
 			.WithOne(c => c.ClassModel)
 			.HasForeignKey(c => c.ClassModelId)
 			.IsRequired();
 
+			modelBuilder.Entity<ClassModel>()
+			.HasOne(x => x.ParentClassModel)
+			.WithMany(x => x.ChildClassModels)
+			.HasForeignKey(x => x.ParentClassModelId)
+            .OnDelete(DeleteBehavior.Restrict);
 
 
-			var classModelList = new List<ClassModel>
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                foreach (var property in entityType.GetProperties())
+                {
+                    if (property.ClrType.BaseType == typeof(Enum))
+                    {
+                        var type = typeof(EnumToStringConverter<>).MakeGenericType(property.ClrType);
+                        var converter = Activator.CreateInstance(type, new ConverterMappingHints()) as ValueConverter;
+
+                        property.SetValueConverter(converter);
+                    }
+                }
+            }
+
+
+            var classModelList = new List<ClassModel>
 			{
 				new ClassModel
 				{

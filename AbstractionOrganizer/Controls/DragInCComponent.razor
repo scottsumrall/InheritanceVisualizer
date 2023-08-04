@@ -1,24 +1,33 @@
 ﻿
 @using Microsoft.JSInterop
 @inject IJSRuntime JS;
+@inherits ClassComponentBase
 
+@if (classes is null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <div id="button" class ="button">
+        <button class="button" @onclick="CreateClass">new E</button>
+    </div>
+    <div id="refreshButton" class="button">
+        <button class="button" @onclick="Refresh">new E</button>
+    </div>
 
-
-<div id="button">
-    <button class="button" @onclick="CreateClass">new E</button>
-</div>
-
-<div id="class-drop-zone"></div>
-    @foreach (string value in Values)
+    <div id="class-drop-zone"></div>
+    @foreach (ClassModel classModel in classes)
     {
-        <div id="@value" class="draggable new" onclick="this.focus()" text-align="center">
+        <div id="@classModel.Id" class="draggable new" onclick="this.focus()" text-align="center">
             @*    <div id="flex">
         <div id="inner" contenteditable="true" onclick="this.focus()" placeholder="Enter text here..." display="inline-block"></div>
         </div>*@
-            <ClassBodyComponent></ClassBodyComponent>
+            <ClassBodyComponent Id="@classModel.Id"></ClassBodyComponent>
         </div>
         <svg id="patchCords"></svg>
     }
+}
 
 
 
@@ -31,6 +40,10 @@
     private int _classCounter = 0;
     private String? IDName;
 
+    private async Task Refresh()
+    {
+        await OnInitializedAsync();
+    }
     private async Task CreateClass()
     {
         IDName = "class" + _classCounter;

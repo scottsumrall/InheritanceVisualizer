@@ -7,7 +7,7 @@
 namespace AbstractionOrganizer.Api.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class initialCreate : Migration
+    public partial class initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,12 +19,19 @@ namespace AbstractionOrganizer.Api.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AccessModifier = table.Column<int>(type: "int", nullable: false),
-                    ClassModifier = table.Column<int>(type: "int", nullable: false)
+                    AccessModifier = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ClassModifier = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ParentClassModelId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ClassHeaders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ClassHeaders_ClassHeaders_ParentClassModelId",
+                        column: x => x.ParentClassModelId,
+                        principalTable: "ClassHeaders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -34,7 +41,7 @@ namespace AbstractionOrganizer.Api.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AccessModifier = table.Column<int>(type: "int", nullable: false),
+                    AccessModifier = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsStatic = table.Column<bool>(type: "bit", nullable: false),
                     ClassModelId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -51,13 +58,13 @@ namespace AbstractionOrganizer.Api.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ClassHeaders",
-                columns: new[] { "Id", "AccessModifier", "ClassModifier", "Name" },
+                columns: new[] { "Id", "AccessModifier", "ClassModifier", "Name", "ParentClassModelId" },
                 values: new object[,]
                 {
-                    { 1, 0, 0, "class1" },
-                    { 2, 2, 0, "class2" },
-                    { 3, 2, 1, "class3" },
-                    { 4, 1, 2, "class4" }
+                    { 1, "Public", "Concrete", "class1", null },
+                    { 2, "Protected", "Concrete", "class2", null },
+                    { 3, "Protected", "Abstract", "class3", null },
+                    { 4, "Private", "Static", "class4", null }
                 });
 
             migrationBuilder.InsertData(
@@ -65,9 +72,14 @@ namespace AbstractionOrganizer.Api.Data.Migrations
                 columns: new[] { "Id", "AccessModifier", "ClassModelId", "IsStatic", "Name" },
                 values: new object[,]
                 {
-                    { 1, 0, 1, false, "testVar1" },
-                    { 2, 1, 1, false, "testVar2" }
+                    { 1, "Public", 1, false, "testVar1" },
+                    { 2, "Private", 1, false, "testVar2" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClassHeaders_ParentClassModelId",
+                table: "ClassHeaders",
+                column: "ParentClassModelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_VariableModels_ClassModelId",

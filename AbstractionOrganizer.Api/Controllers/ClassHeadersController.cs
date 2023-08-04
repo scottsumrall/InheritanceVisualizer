@@ -39,6 +39,7 @@ namespace AbstractionOrganizer.Api.Controllers
 			{
 				var result = _appDbContext.ClassHeaders
 												.Include(c => c.VariableModels)
+												.Include(c => c.ParentClassModel)
 												.Where(c => c.Id == id)
 												.FirstOrDefault();
 
