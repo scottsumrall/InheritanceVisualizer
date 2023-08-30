@@ -21,10 +21,12 @@ namespace AbstractionOrganizer.Models
         [Required]
         public required AccessModifier AccessModifier { get; set; }
 
+        [Required]
         public required MethodModifier MethodModifier { get; set; }
 
         public int ClassModelId { get; set; }
 
+        [Required]
         public bool GetsInherited { get; set; }
 
         [JsonIgnore]
