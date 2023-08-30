@@ -82,6 +82,39 @@ namespace AbstractionOrganizer.Api.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("AbstractionOrganizer.Models.MethodModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AccessModifier")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ClassModelId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("GetsInherited")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MethodModifier")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassModelId");
+
+                    b.ToTable("MethodModels");
+                });
+
             modelBuilder.Entity("AbstractionOrganizer.Models.VariableModel", b =>
                 {
                     b.Property<int>("Id")
@@ -137,6 +170,17 @@ namespace AbstractionOrganizer.Api.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("ParentClassModel");
+                });
+
+            modelBuilder.Entity("AbstractionOrganizer.Models.MethodModel", b =>
+                {
+                    b.HasOne("AbstractionOrganizer.Models.ClassModel", "ClassModel")
+                        .WithMany()
+                        .HasForeignKey("ClassModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ClassModel");
                 });
 
             modelBuilder.Entity("AbstractionOrganizer.Models.VariableModel", b =>

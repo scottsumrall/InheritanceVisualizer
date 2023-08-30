@@ -35,6 +35,29 @@ namespace AbstractionOrganizer.Api.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MethodModels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AccessModifier = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MethodModifier = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ClassModelId = table.Column<int>(type: "int", nullable: false),
+                    GetsInherited = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MethodModels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MethodModels_ClassHeaders_ClassModelId",
+                        column: x => x.ClassModelId,
+                        principalTable: "ClassHeaders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "VariableModels",
                 columns: table => new
                 {
@@ -82,6 +105,11 @@ namespace AbstractionOrganizer.Api.Data.Migrations
                 column: "ParentClassModelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MethodModels_ClassModelId",
+                table: "MethodModels",
+                column: "ClassModelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_VariableModels_ClassModelId",
                 table: "VariableModels",
                 column: "ClassModelId");
@@ -90,6 +118,9 @@ namespace AbstractionOrganizer.Api.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "MethodModels");
+
             migrationBuilder.DropTable(
                 name: "VariableModels");
 

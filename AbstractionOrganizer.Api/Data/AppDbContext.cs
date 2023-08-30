@@ -15,6 +15,8 @@ namespace AbstractionOrganizer.Api.Data
         public DbSet<ClassModel> ClassHeaders => Set<ClassModel>();
 		public DbSet<VariableModel> VariableModels => Set<VariableModel>();
 
+		public DbSet<MethodModel> MethodModels => Set<MethodModel>();
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
@@ -101,6 +103,20 @@ namespace AbstractionOrganizer.Api.Data
 					ClassModelId = 1
 				}
 			};
+
+			var methodModelList = new List<MethodModel>
+			{ 
+				new MethodModel()
+				{
+					Id=1,
+					Name="testMethod1",
+					AccessModifier = AccessModifier.Public,
+					MethodModifier=MethodModifier.Static,
+					ClassModelId= 1,
+					GetsInherited=true
+				}
+			};
+
 
 
 			//classModelList![0].VariableModels.Add(variableModelList[0]);
