@@ -124,6 +124,7 @@ namespace AbstractionOrganizer.Api.Data
 
 			modelBuilder.Entity<ClassModel>().HasData(classModelList);
 			modelBuilder.Entity<VariableModel>().HasData(variableModelList);
+			modelBuilder.Entity<MethodModel>().HasData(methodModelList);
 		}
 	}
 }
