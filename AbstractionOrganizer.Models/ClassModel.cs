@@ -22,14 +22,17 @@ namespace AbstractionOrganizer.Models
 
 		public virtual ICollection<VariableModel>? VariableModels { get; set; } = new List<VariableModel>();
 
-		// One to many self referential relationship
+        public virtual ICollection<MethodModel>? MethodModels { get; set; } = new List<MethodModel>();
 
-        
+        // One to many self referential relationship
+
+
         public int? ParentClassModelId { get; set; }
         [JsonIgnore]
         public ClassModel? ParentClassModel { get; set; } = null!;
 
         public virtual ICollection<ClassModel>? ChildClassModels { get; set; } = new List<ClassModel>();
+
     }
 
 	public enum ClassModifier
