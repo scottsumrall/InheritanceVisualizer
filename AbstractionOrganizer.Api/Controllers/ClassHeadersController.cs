@@ -26,6 +26,7 @@ namespace AbstractionOrganizer.Api.Controllers
 			}
 			var classHeaders = await _appDbContext.ClassHeaders
 											.Include(c =>  c.VariableModels)
+											.Include(c => c.MethodModels)
 											.ToListAsync();
 			return Ok(classHeaders);
 		}
@@ -40,6 +41,7 @@ namespace AbstractionOrganizer.Api.Controllers
 				var result = _appDbContext.ClassHeaders
 												.Include(c => c.VariableModels)
 												.Include(c => c.ParentClassModel)
+												.Include(c => c.MethodModels)
 												.Where(c => c.Id == id)
 												.FirstOrDefault();
 
@@ -82,7 +84,11 @@ namespace AbstractionOrganizer.Api.Controllers
 			{
 				varModel.ClassModelId = classModel.Id;
 			}
-		}
+            foreach (MethodModel methodModel in classModel.MethodModels!)
+            {
+                methodModel.ClassModelId = classModel.Id;
+            }
+        }
 
 		[HttpPut("{id:int}")]
 		public async Task<ActionResult<ClassModel>> UpdateClassHeader(int id, ClassModel classModel)
