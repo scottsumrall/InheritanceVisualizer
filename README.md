@@ -9,6 +9,7 @@ This repo is a personal passion project of mine. It is a work in progress fulll-
 ### Swagger API/ MSSQL Database
 ![image](https://github.com/scottsumrall/InheritanceVisualizer/assets/78440487/c2298afa-1363-440c-a569-d2d28171e5f2)
 #### Features
+- [x] Link API to Dockerized MSSQL server
 - [x] Variable model implementation
 - [x] Method model implementation
 - [x] Class model implementation
