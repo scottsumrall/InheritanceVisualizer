@@ -17,6 +17,7 @@ This repo is a personal passion project of mine. It is a work in progress fulll-
       
 ### Flow Chart Style Visualization
 ![image](https://github.com/scottsumrall/InheritanceVisualizer/assets/78440487/036c0695-aad0-4322-839e-5dcfe5ffd84a)
+#### Features
 - [x] Movable and resizable 'Class Blocks'
 - [x] Scroll with drag
 - [x] Display class header from API
