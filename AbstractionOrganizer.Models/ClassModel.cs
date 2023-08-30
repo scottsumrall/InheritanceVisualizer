@@ -35,15 +35,16 @@ namespace AbstractionOrganizer.Models
 
     }
 
-	public enum ClassModifier
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum ClassModifier
 	{
 		Concrete = 0,
 		Abstract,
 		Static,
 		Sealed
 	}
-
-	public enum AccessModifier
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum AccessModifier
 	{
 		Public,
 		Private,

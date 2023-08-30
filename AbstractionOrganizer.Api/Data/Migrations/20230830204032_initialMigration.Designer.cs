@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AbstractionOrganizer.Api.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230830203309_initialMigration")]
+    [Migration("20230830204032_initialMigration")]
     partial class initialMigration
     {
         /// <inheritdoc />
@@ -178,7 +178,7 @@ namespace AbstractionOrganizer.Api.Data.Migrations
             modelBuilder.Entity("AbstractionOrganizer.Models.MethodModel", b =>
                 {
                     b.HasOne("AbstractionOrganizer.Models.ClassModel", "ClassModel")
-                        .WithMany()
+                        .WithMany("MethodModels")
                         .HasForeignKey("ClassModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -200,6 +200,8 @@ namespace AbstractionOrganizer.Api.Data.Migrations
             modelBuilder.Entity("AbstractionOrganizer.Models.ClassModel", b =>
                 {
                     b.Navigation("ChildClassModels");
+
+                    b.Navigation("MethodModels");
 
                     b.Navigation("VariableModels");
                 });
