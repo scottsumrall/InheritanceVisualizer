@@ -16,7 +16,10 @@ namespace AbstractionOrganizer.Models
 		public required int Id { get; set; }
 
 		[Required]
-		public required String Name { get; set; }
+		public required string Name { get; set; }
+
+        [Required]
+        public required string Type { get; set; }
 
 		[Required]
 		public required AccessModifier AccessModifier { get; set; }

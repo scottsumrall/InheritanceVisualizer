@@ -90,6 +90,7 @@ namespace AbstractionOrganizer.Api.Data
 				{
 					Id = 1,
 					Name = "testVar1",
+					Type = "Int",
 					AccessModifier = AccessModifier.Public,
 					IsStatic = false,
 					ClassModelId = 1
@@ -98,6 +99,7 @@ namespace AbstractionOrganizer.Api.Data
 				{
 					Id = 2,
 					Name = "testVar2",
+					Type = "String",
 					AccessModifier = AccessModifier.Private,
 					IsStatic = false,
 					ClassModelId = 1
