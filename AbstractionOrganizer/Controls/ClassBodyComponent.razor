@@ -31,12 +31,13 @@ else
 
                         <div class="class-component-overflow flex-fill h-100 w-100 member-background">
 
-                            <MethodBodyComponent methodId="temp1"></MethodBodyComponent>
-                            <MethodBodyComponent methodId="temp2"></MethodBodyComponent>
-                            <MethodBodyComponent methodId="temp3"></MethodBodyComponent>
-                            <MethodBodyComponent methodId="temp4"></MethodBodyComponent>
-                            <MethodBodyComponent methodId="temp5"></MethodBodyComponent>
-                            <MethodBodyComponent methodId="temp6"></MethodBodyComponent>
+                            @foreach (VariableModel variableModel in classModel.VariableModels)
+                            {
+                                <VariableBodyComponent 
+                                    type="@variableModel.Type" name="@variableModel.Name" accessModifier="@variableModel.AccessModifier" 
+                                    isStatic=@variableModel.IsStatic variableID=@variableModel.Id>
+                                </VariableBodyComponent>
+                            }
                         </div>
             
                     </div>
