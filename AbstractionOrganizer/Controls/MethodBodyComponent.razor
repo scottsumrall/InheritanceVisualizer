@@ -3,7 +3,7 @@
         <div class="col-3 d-flex component-item">
                    <div class="dropdown">
                             <div class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Public
+                                @accessModifier
                             </div>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="#">Action</a>
@@ -13,12 +13,20 @@
                     </div>
         </div>
 
+        @if (methodModifier is not MethodModifier.Default)
+        {
             <div class="col-3 d-flex component-item">
-                        <p>Class</p>
+                <p>@methodModifier</p>
             </div>
+        }
+
+        <div class="col-3 d-flex component-item">
+            <p>@returnType</p>
+        </div>
+
 
         <div class="col-4 d-flex component-item">
-                        <div id="inner" contenteditable="true" onclick="this.focus()" placeholder="Name..." ></div>
+               <p>@name</p>
         </div>
             <div class="col-2 d-flex component-item">
                         <button @onclick="Toggle" class="btn">
@@ -36,8 +44,19 @@
 
 @code {
     [Parameter]
-    public String methodID { get; set; }
+    public int methodID { get; set; }
 
+    [Parameter]
+    public required AccessModifier accessModifier { get; set; }
+
+    [Parameter]
+    public required MethodModifier methodModifier { get;set; }
+
+    [Parameter]
+    public required string returnType { get; set; }
+
+    [Parameter]
+    public required string name { get; set; }
 
     public bool Collapsed { get; set; } = true;
 
