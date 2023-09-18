@@ -44,9 +44,12 @@ else
 
                     <div id="tester" class="col-7  h-100">
                         <div class="class-component-overflow flex-fill h-100 w-100 member-background">
-                            @foreach (String value in MethodIds)
+                            @foreach (MethodModel methodModel in classModel.MethodModels)
                             {
-                                <MethodBodyComponent methodId=@value></MethodBodyComponent>
+                                <MethodBodyComponent 
+                                    returnType="@methodModel.ReturnType" name="@methodModel.Name" accessModifier="@methodModel.AccessModifier"
+                                    methodModifier=@methodModel.MethodModifier methodID=@methodModel.Id>
+                                </MethodBodyComponent>
                             }
       
                        </div>

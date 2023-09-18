@@ -16,7 +16,7 @@ namespace AbstractionOrganizer.Models
         public required int Id { get; set; }
 
         [Required]
-        public required String Name { get; set; }
+        public required string Name { get; set; }
 
         [Required]
         public required AccessModifier AccessModifier { get; set; }
@@ -24,6 +24,8 @@ namespace AbstractionOrganizer.Models
         [Required]
         public required MethodModifier MethodModifier { get; set; }
 
+        [Required]
+        public required string ReturnType { get; set; }
         public int ClassModelId { get; set; }
 
         [Required]
@@ -36,7 +38,7 @@ namespace AbstractionOrganizer.Models
 
 public enum MethodModifier
 {
-    Defualt = 0,
+    Default = 0,
     New,
     Virtual,
     Abstract,

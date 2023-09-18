@@ -112,6 +112,7 @@ namespace AbstractionOrganizer.Api.Data
 				{
 					Id=1,
 					Name="testMethod1",
+					ReturnType = "void",
 					AccessModifier = AccessModifier.Public,
 					MethodModifier=MethodModifier.Static,
 					ClassModelId= 1,

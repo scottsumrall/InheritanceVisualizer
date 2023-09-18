@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbstractionOrganizer", "Abs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbstractionOrganizer.Models", "AbstractionOrganizer.Models\AbstractionOrganizer.Models.csproj", "{CB31C32F-EAD3-4C10-B1AF-A93C848EAE61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbstractionOrganizer.Api", "AbstractionOrganizer.Api\AbstractionOrganizer.Api.csproj", "{3566353D-6659-4142-AEBE-C51614D3E2FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbstractionOrganizer.Api", "AbstractionOrganizer.Api\AbstractionOrganizer.Api.csproj", "{3566353D-6659-4142-AEBE-C51614D3E2FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
